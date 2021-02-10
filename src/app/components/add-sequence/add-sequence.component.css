@@ -1,0 +1,58 @@
+.input-names {
+  margin-top: 20px;
+  padding-right: 15px;
+}
+
+.input-values {
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.input-names-container {
+  float: right;
+  width: 100%;
+}
+
+p {
+  line-height: 1;
+}
+
+.description-field {
+  width: 60%;
+}
+
+.text {
+  margin-top: 35px;
+  color: grey;
+}
+
+.description-field,
+.mat-form-field-wrapper {
+  width: 96%;
+  padding-bottom: 0px;
+}
+
+.text-remaining {
+  color: rgb(150, 150, 150);
+  font-size: 10px;
+  float: right;
+  margin-bottom: 0px;
+}
+
+.buttons-container{
+  width: 100%;
+}
+
+.close-button {
+  float: right;
+  margin-right: 10px;
+}
+
+.save-button {
+  float: right;
+  background-color: #96c9d1
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #96c9d1;
+}

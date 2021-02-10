@@ -1,0 +1,20 @@
+.char-t {
+  color: red;
+}
+.char-g {
+  color: blue;
+}
+.char-c {
+  color: orange;
+}
+.char-a {
+  color: green;
+}
+
+.sequence{
+  word-wrap: break-word;
+}
+
+.close-button {
+  float: right;
+}

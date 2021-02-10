@@ -5,6 +5,7 @@
     "outDir": "../out-tsc/e2e",
     "module": "commonjs",
     "target": "es2018",
+    "strictNullChecks": false,
     "types": [
       "jasmine",
       "node"

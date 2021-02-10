@@ -1,0 +1,66 @@
+<div [formGroup]="form">
+  <h2>Add a New Sequence</h2>
+  <div class="flex-row">
+    <div class="input-names">
+        Sequence Name:
+    </div>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="form.get('name').hasError('required') && form.get('name') !==null">
+          Sequence name cannot be blank
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="char-count-description flex-column">
+      <div class="text-remaining-container">
+        <p class="text-remaining">
+          {{ 500 - form.value.description.length }} characters remaining
+        </p>
+      </div>
+      <div class="input-container">
+        <div class="flex-row">
+          <div class="input-names">
+              Description:
+          </div>
+          <mat-form-field class="description-field" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput
+              cdkTextareaAutosize
+              maxlength="500"
+              #autosize="cdkTextareaAutosize"
+              formControlName="description"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5">
+            </textarea>
+            <mat-error *ngIf="form.get('description').hasError('required') && form.get('description') !==null">
+              Description cannot be blank
+            </mat-error>
+          </mat-form-field>  
+        </div>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="input-names">
+          Sequence:
+      </div>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Sequence</mat-label>
+          <input matInput formControlName="sequence">
+          <mat-error *ngIf="form.get('sequence').hasError('required') && form.get('sequence') !==null">
+            Sequence cannot be blank
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div *ngIf="errorMessage!==undefined">
+        {{errorMessage}}
+      </div>
+      <div>
+        <div class="flex-row">
+          <div class="buttons-container">
+            <button mat-raised-button class="save-button" (click)="saveData()">Save</button>
+            <button mat-raised-button class="close-button" (click)="closeDialog()">Close</button>
+          </div>
+        </div>
+      </div>  
+</div>

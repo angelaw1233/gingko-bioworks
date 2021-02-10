@@ -1,0 +1,59 @@
+.add-sequence-button {
+  float: right
+}
+
+.main-page-container {
+  width: 100%;
+  height: calc(100vh - 90px);
+}
+
+.mat-row:hover {
+  background-color: #fde4e5;
+  cursor: pointer;
+}
+
+.table-container {
+  height: 90%;
+  margin: 20px;
+  overflow: auto;
+}  
+
+table {
+  width: 100%;
+}
+
+.mat-column-sequence {
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card{
+  margin: 20px;
+}
+
+td , th {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+.header-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.search-form {
+  margin-left: 20px;
+}
+
+.main-page-button {
+  margin-left: 20px;
+  margin-top: 12px;
+  background-color: #fde4e5;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #96c9d1;
+}

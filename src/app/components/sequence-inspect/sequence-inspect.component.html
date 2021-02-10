@@ -1,0 +1,17 @@
+<div class="flex-column"> 
+  <h1>Sequence Details</h1>
+  <div>
+    <b>Sequence Name: </b>{{selectedSequence.sequenceName}}
+  </div>
+  <div>
+    <b>Sequence Description: </b>{{selectedSequence.sequenceDescription}}
+  </div>
+  <div>
+    <b>Sequence: </b>
+    <span class="sequence" [innerHtml]="sequenceString"></span>  
+  </div>
+  <div class="button-container">
+    <button class="close-button" mat-raised-button (click)="closeSequenceInspectDialog.emit()">Close</button>
+  </div>
+
+</div>

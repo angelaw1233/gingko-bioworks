@@ -1,0 +1,8 @@
+<app-main-page
+  [jsonData]="jsonData$ | async"
+  [existingSequenceData]="existingSequenceData$ | async"
+  (openAddSequenceDialog)="openAddSequenceDialog()"
+  (openSequenceInspectDialog)="openSequenceInspectDialog()"
+  (setSequenceData)="setSequenceData($event)"
+  (selectSequence)="selectSequence($event)"
+></app-main-page>
