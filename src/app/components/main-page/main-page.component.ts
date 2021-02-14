@@ -21,15 +21,13 @@ export class MainPageComponent implements OnInit, OnChanges {
   @Output() openSequenceInspectDialog: EventEmitter<any>  = new EventEmitter();
   sequenceData: Sequence[] | undefined;
   displayedColumns: string[] = ['sequenceName', 'description', 'sequence'];
-  dataSource = new MatTableDataSource;
+  dataSource!: MatTableDataSource<Sequence>;
   allData: any = [];
   searchText!: string;
   formData!: FormData;
   errorMessage!: string;
   file: any;
   uploadedFile!: any;
-  durationInSeconds = 5;
-
   public uploader: FileUploader = new FileUploader({
     url: '',
     disableMultipart : false,
@@ -42,13 +40,19 @@ export class MainPageComponent implements OnInit, OnChanges {
   constructor(private _snackBar: MatSnackBar) {
   }
 
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.getData();
+    this.dataSource.sortingDataAccessor = (item:any , property) => {
+      if (typeof item[property] === 'string') {
+        return item[property].toLocaleLowerCase();
+      }
+      return item[property];
+    };      
     this.dataSource.sort = this.sort;
   }
 
@@ -71,7 +75,7 @@ export class MainPageComponent implements OnInit, OnChanges {
         this.allData.push(sequence);
       })
     }
-    this.dataSource = this.allData;
+    this.dataSource = new MatTableDataSource(this.allData);
   }
 
   selectSequenceInspect(sequence: Sequence) {

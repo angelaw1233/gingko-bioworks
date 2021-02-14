@@ -31,7 +31,7 @@
   
           <!-- Name Column -->
           <ng-container matColumnDef="sequenceName">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef> Sequence Name </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sequence Name </th>
             <td mat-cell *matCellDef="let sequence" (click)="selectSequenceInspect(sequence)"> {{sequence.sequenceName}} </td>
           </ng-container>
         
