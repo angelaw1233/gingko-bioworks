@@ -24,7 +24,7 @@ This project was created by Angela Wilson for Gingko Bioworks.  This web page al
       "sequence": "CCCCC"
     }
   ]
-}
+}```
 
 In the event that your JSON file does not follow this schema, please delete the uploaded file from your Local Storage on your browser (under "uploadedSequences") and try again.  Table data can also be downloaded in CSV format.  
 
