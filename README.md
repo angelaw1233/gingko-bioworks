@@ -1,7 +1,7 @@
 # GingkoBioworks
 This project was created by Angela Wilson for Gingko Bioworks.  This web page allows you to view DNA sequence data.  DNA sequence data can be added to the table through manual entry or by file upload.  File upload must be of type JSON and schema structure MUST follow schema below: 
 
-<code>{
+```{
   "sequences": [
     {
       "sequenceDescription": "test description",
@@ -24,7 +24,8 @@ This project was created by Angela Wilson for Gingko Bioworks.  This web page al
       "sequence": "CCCCC"
     }
   ]
-}</code>
+}
+```
 
 In the event that your JSON file does not follow this schema, please delete the uploaded file from your Local Storage on your browser (under "uploadedSequences") and try again.  Table data can also be downloaded in CSV format.  
 
