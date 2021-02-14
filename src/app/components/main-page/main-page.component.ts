@@ -1,8 +1,10 @@
-import { getTreeNoValidDataSourceError } from '@angular/cdk/tree';
-import { AfterViewChecked, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Sequence } from 'src/app/data/models/sequence';
 import { IncomingJson } from 'src/app/data/models/incomingJson';
-import { FileUploader, FileItem, ParsedResponseHeaders, FileLikeObject } from 'ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-main-page',
@@ -18,14 +20,15 @@ export class MainPageComponent implements OnInit, OnChanges {
   @Output() selectSequence: EventEmitter<any>  = new EventEmitter();
   @Output() openSequenceInspectDialog: EventEmitter<any>  = new EventEmitter();
   sequenceData: Sequence[] | undefined;
-  displayedColumns: string[] = ['name', 'description', 'sequence'];
-  dataSource!: Sequence[];
-  allData: Sequence[] = [];
+  displayedColumns: string[] = ['sequenceName', 'description', 'sequence'];
+  dataSource = new MatTableDataSource;
+  allData: any = [];
   searchText!: string;
   formData!: FormData;
   errorMessage!: string;
   file: any;
   uploadedFile!: any;
+  durationInSeconds = 5;
 
   public uploader: FileUploader = new FileUploader({
     url: '',
@@ -36,14 +39,17 @@ export class MainPageComponent implements OnInit, OnChanges {
     allowedFileType: ['image', 'pdf']
   });  
 
-  constructor() {
+  constructor(private _snackBar: MatSnackBar) {
   }
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.getData();
+    this.dataSource.sort = this.sort;
   }
 
   getData() {
@@ -75,7 +81,7 @@ export class MainPageComponent implements OnInit, OnChanges {
 
   search() {
     if (this.searchText !== '') {
-      this.dataSource = this.allData.filter(sequence => sequence.sequenceName.toLowerCase().includes(this.searchText.toLowerCase()));
+      this.dataSource = this.allData.filter((sequence: any) => sequence.sequenceName.toLowerCase().includes(this.searchText.toLowerCase()));
     } else {
       this.getData();
     }
@@ -87,7 +93,7 @@ export class MainPageComponent implements OnInit, OnChanges {
   }
 
   exportToCsv() {
-    const items = this.dataSource;
+    const items = this.allData;
     const replacer = (_key: any, _value: any) => _value === (null || undefined) ? '' : _value; 
     const header = Object.keys(items[0]);
     const csv = items.map((row: any) => header.map(fieldName => JSON.stringify(row[fieldName], replacer).replace(/\\"/g, '""')).join(','));
@@ -144,6 +150,13 @@ export class MainPageComponent implements OnInit, OnChanges {
     })
     localStorage.setItem('uploadedSequences', file);
     this.getData();
+    this.openSnackBar('File uploaded successfully', 'close')
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 }
 

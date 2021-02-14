@@ -14,11 +14,6 @@
           <button mat-raised-button class="main-page-button" (click)="openAddSequenceDialog.emit()">Add DNA sequence</button>
         </div>
         <div>
-          <!-- <input type="file" id="file-upload" #file style="display: none" accept="application/JSON"> -->
-          <!-- <button mat-raised-button class="main-page-button">
-            <input ng2FileSelect class="none" style="display: none" type="file" [uploader]="uploader" accept="application/JSON" (change)="onFileSelected($event)"/>
-            Upload sequence from file
-          </button> -->
           <button mat-raised-button class="main-page-button" (click)="fileInput.click()">Upload sequence from file</button>
             <span style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height:0px;border:none;margin:0; padding:0">
               <input type="file" #fileInput ng2FileSelect [uploader]="uploader" (change)="fileChanged($event)" />
@@ -32,11 +27,11 @@
   </div>
     <mat-card class="card">
       <div class="table-container">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   
           <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Sequence Name </th>
+          <ng-container matColumnDef="sequenceName">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef> Sequence Name </th>
             <td mat-cell *matCellDef="let sequence" (click)="selectSequenceInspect(sequence)"> {{sequence.sequenceName}} </td>
           </ng-container>
         
