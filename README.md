@@ -1,4 +1,35 @@
 # GingkoBioworks
+This project was created by Angela Wilson for Gingko Bioworks.  This web page allows you to view DNA sequence data.  DNA sequence data can be added to the table through manual entry or by file upload.  File upload must be of type JSON and schema structure MUST follow schema below: 
+
+```{
+  "sequences": [
+    {
+      "sequenceDescription": "test description",
+      "sequenceName": "test",
+      "sequence": "TTTTTTTTTTTTTTTTTT"
+    },
+    {
+      "sequenceDescription": "Cloning vector pSport2, complete sequence",
+      "sequenceName": "U12391.1",
+      "sequence": "AAAAAAAAAAAAAAA"
+    },
+    {
+      "sequenceDescription": "another test",
+      "sequenceName": "test number 2",
+      "sequence": "GGGGG"
+    },
+    {
+      "sequenceDescription": "test number 3",
+      "sequenceName": "hey",
+      "sequence": "CCCCC"
+    }
+  ]
+}```
+
+In the event that your JSON file does not follow this schema, please delete the uploaded file from your Local Storage on your browser (under "uploadedSequences") and try again.  Table data can also be downloaded in CSV format.  
+
+Any bug reports or feature suggestions, please reach out to angelaw1233@gmail.com
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
