@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { HttpClientModule } from '@angular/common/http';
+import { FileUploadModule } from 'ng2-file-upload';
 
 // ngrx modules
 import { StoreModule } from '@ngrx/store';
@@ -48,6 +49,7 @@ import { SequenceInspectContainerComponent } from './containers/sequence-inspect
     SequenceInspectContainerComponent
   ],
   imports: [
+    FileUploadModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

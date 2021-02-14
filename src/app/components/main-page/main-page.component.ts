@@ -2,7 +2,7 @@ import { getTreeNoValidDataSourceError } from '@angular/cdk/tree';
 import { AfterViewChecked, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Sequence } from 'src/app/data/models/sequence';
 import { IncomingJson } from 'src/app/data/models/incomingJson';
-import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
+import { FileUploader, FileItem, ParsedResponseHeaders, FileLikeObject } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-main-page',
@@ -23,7 +23,18 @@ export class MainPageComponent implements OnInit, OnChanges {
   allData: Sequence[] = [];
   searchText!: string;
   formData!: FormData;
+  errorMessage!: string;
+  file: any;
+  uploadedFile!: any;
 
+  public uploader: FileUploader = new FileUploader({
+    url: '',
+    disableMultipart : false,
+    autoUpload: true,
+    method: 'post',
+    itemAlias: 'attachment',
+    allowedFileType: ['image', 'pdf']
+  });  
 
   constructor() {
   }
@@ -40,6 +51,12 @@ export class MainPageComponent implements OnInit, OnChanges {
     if (localStorage.getItem('sequenceData')) {
       this.sequenceData = JSON.parse(localStorage.getItem('sequenceData') || '{}');
       this.sequenceData?.forEach(sequence => {
+        this.allData.push(sequence);
+      })
+    }
+    if (localStorage.getItem('uploadedSequences')) {
+      const tempData = JSON.parse(localStorage.getItem('uploadedSequences') || '{}');
+      tempData.sequences.forEach((sequence: any) => {
         this.allData.push(sequence);
       })
     }
@@ -103,51 +120,31 @@ export class MainPageComponent implements OnInit, OnChanges {
     }
   }
 
-  
-  // onUploadOutput(output: UploadOutput): void {
-  //   console.log('output', output);
-  //   if (output.type === 'allAddedToQueue') {
-  //     const event: UploadInput = {
-  //       type: 'uploadAll',
-  //       url: localStorage.setItem('sequenceData', this.sequenceString),
-  //       method: 'POST',
-  //     };
-  //     this.uploadInput.emit(event);
-  //   } else if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
-  //     this.files.push(output.file);
-  //   } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
-  //     const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
-  //     this.files[index] = output.file;
-  //     this.processing = true;
-  //   } else if (output.type === 'done') {
+  fileChanged(e: any) {
+    this.file = e.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.uploadedFile = fileReader.result;
+      this.setUploadedFile(this.uploadedFile) 
+    }
+    fileReader.readAsText(this.file);
+  } 
 
-  //     // // upload list of projects
-  //     // if (this.files[0].responseStatus === 201) {
-  //     //   this.projectService.addProject(this.files[0].response.project);
-  //     // }
-
-  //     // if (!this.files[0].response.message) {
-  //     //   this.files[0].response = {
-  //     //     message: 'A major problem occurred. Please send your Excel file to an administrator.'
-  //     //   };
-  //     // }
-
-  //     // if (this.files[0].response.message !== 'File uploaded successfully') {
-  //     //   this.openSnackBar(this.files[0].response.message, '');
-  //     // } else {
-  //     //   this.dontOpenSnackBar(this.files[0].response.message, '');
-  //     // }
-
-  //     // // clear record of previous upload
-  //     // this.projectService.setUploadResponse(this.files[0].response);
-  //     // this.files = [];
-  //     // this.processing = false;
-  //     // const uploadDiv: any = document.getElementById('file-upload');
-  //     // uploadDiv.value = '';
-  //     // this.uploadInput.emit({ type: 'removeAll' });
-
-  //   }
-  // }
-
+  setUploadedFile(file: string) {
+    let uploadedSequences: any[] = [];
+    this.uploadedFile = (JSON.parse(this.uploadedFile))
+    if (localStorage.getItem('uploadedSequences')) {
+      const tempData = JSON.parse(localStorage.getItem('uploadedSequences') || '{}');
+      tempData.sequences.forEach((sequence: any) => {
+        uploadedSequences.push(sequence);
+      })
+    }
+    this.uploadedFile.sequences.forEach((sequence: any) => {
+      uploadedSequences.push(sequence);
+    })
+    localStorage.setItem('uploadedSequences', file);
+    this.getData();
+  }
 }
+
 
